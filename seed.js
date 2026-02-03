@@ -36,13 +36,17 @@ async function seed() {
       artist: artist._id
     });
 
-    // 5. Create User
-    const user = await User.create({ username: 'music_fan_01', email: 'fan@example.com' });
+    // 5. Create User (include required `password` field)
+    const user = await User.create({
+      username: 'music_fan_01',
+      email: 'fan@example.com',
+      password: 'Password123!' // seed-only password
+    });
 
     // 6. Create Playlist (Linked to User and Songs)
     await Playlist.create({
       name: 'Gym Jams',
-      user: user._id,
+      owner: user._id,
       songs: [song._id]
     });
 
